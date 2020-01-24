@@ -1,0 +1,45 @@
+﻿@page
+@model WatOpsFormLibV2.Pages.FormView.FormViewPageModel
+@{
+    ViewData["Title"] = "FormViewPage";
+}
+
+<h1>Form Viewer</h1>
+
+<h3>@Model.Forms.Count()</h3>
+
+<style>
+    .btn { width: 75px;}
+</style>
+
+
+<div class="card-deck">
+    @foreach (var form in Model.Forms)
+    {
+        var photoPath = "~/images/" + (form.FormLocationPath ?? "noimage.jpg");
+
+        <div class="card m-3" style="min-width: 18rem; max-width:30.5%;">
+            <div class="card-header text-center">
+                <h3>@form.FormName</h3>
+            </div>
+            <img class="card-img-top imageThumbnail" src="@photoPath" asp-append-version="true" />
+
+            <div class="card-img-footer text-center">
+                <a asp-page="/FormView/FormFillPage" asp-route-ID="@form.FormName" class="btn btn-primary m-1">View</a>
+                <a asp-page="/FormView/FormReviewPage" class="btn btn-primary m-1">Review</a>
+            </div>
+        </div>
+
+    }
+</div>
+
+<!--
+<div class="card-deck">
+    @foreach (var watersample in Model.Forms)
+    {
+        <a href="#" class="btn btn-block btn-lg btn-primary"><span class="glyphicon glyphicon-tint"></span> @watersample.FormName</a>
+    }
+
+    <i class="fas fa-file-pdf"></i>
+</div>
+-->
